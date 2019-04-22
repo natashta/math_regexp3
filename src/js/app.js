@@ -1,35 +1,23 @@
-function Character(name, type) {
-  if (name.length < 2 || name.length > 10) {
-    throw new Error('Некорректно введено имя');
-  }
-  if (type === 'Bowman') {
-    this.attack = 25;
-    this.defence = 25;
-  } else if (type === 'Swordsman') {
-    this.attack = 40;
-    this.defence = 10;
-  } else if (type === 'Magician') {
-    this.attack = 10;
-    this.defence = 40;
-  } else if (type === 'Undead') {
-    this.attack = 25;
-    this.defence = 25;
-  } else if (type === 'Zombie') {
-    this.attack = 40;
-    this.defence = 10;
-  } else if (type === 'Daemon') {
-    this.attack = 10;
-    this.defence = 40;
-  } else {
-    throw new Error('Указан неверный тип персонажа');
+export default class ArrayBufferConverter {
+  constructor() {
+    this.data = undefined;
   }
 
-  this.health = 100;
-  this.level = 1;
-  this.name = name;
-  this.type = type;
+  load(data) {
+    this.data = new ArrayBuffer(data.length * 2);
+    const bufferView = new Uint16Array(this.data);
+    for (let i = 0; i < data.length; i++) {
+      bufferView[i] = data.charCodeAt(i);
+    }
+    return this.data;
+  }
 
-  return this;
+  toString() {
+    const bufferView = new Uint16Array(this.data);
+    let str = '';
+    for (let i = 0; i < bufferView.length; i++) {
+      str += String.fromCharCode(bufferView[i]);
+    }
+    return str;
+  }
 }
-
-export default Character;
