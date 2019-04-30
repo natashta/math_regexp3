@@ -1,15 +1,17 @@
-export default class ArrayBufferConverter {
+import getBuffer from '../js/getBuffer';
 
-  load(data) {
-    this.data = new ArrayBuffer(data.length * 2);
-    const bufferView = new Uint16Array(this.data);
-    for (let i = 0; i < data.length; i++) {
-      bufferView[i] = data.charCodeAt(i);
-    }
-    return this.data;
+export default class ArrayBufferConverter {
+  constructor() {
+    this.data = undefined;
+    this.buffer = 0;
+  }
+
+  load() {
+    this.buffer = getBuffer(this.data);
+    return this.buffer;
   }
 
   toString() {
-    return String.fromCharCode(...new Uint16Array(this.data));
+    return String.fromCharCode(...new Uint16Array(this.buffer));
   }
 }
