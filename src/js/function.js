@@ -1,4 +1,4 @@
-import getBuffer from '../js/getBuffer';
+import getBuffer from './getBuffer';
 
 export default class ArrayBufferConverter {
   constructor() {
