@@ -1,17 +1,13 @@
-import getBuffer from './getBuffer';
-
 export default class ArrayBufferConverter {
-  constructor() {
-    this.data = undefined;
-    this.buffer = 0;
+  constructor(buffer = null) {
+    this.load(buffer);
   }
 
-  load() {
-    this.buffer = getBuffer(this.data);
-    return this.buffer;
+  load(buffer) {
+    this.data = buffer;
   }
 
   toString() {
-    return String.fromCharCode(...new Uint16Array(this.buffer));
+    return String.fromCharCode(...new Uint16Array(this.data));
   }
 }
